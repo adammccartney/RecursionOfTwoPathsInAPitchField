@@ -4,7 +4,7 @@ Recursion in a Pitch Field
 Simple program that models the path traveled by individual pitches of a melody 
 as they are transposed through a pitch field. In other words, these pitches
 are transposed by a set of diatonic intervals a number of times and the number of 
-times that discrete pitches occur is counted. The idea is an attempt to model
+times that a specific pitch occurs is counted. The idea is an attempt to model
 the types of recursive algorithms used to generate strange attractors and other
 similar types of chaotic symmetries. 
 
