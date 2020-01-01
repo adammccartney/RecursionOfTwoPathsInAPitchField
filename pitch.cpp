@@ -196,5 +196,14 @@ namespace FisMoll {
 			break;
 		}
 	};
+
+	//std::ostream& operator<<(std::ostream& os, Pitch& p) const;
+    // Create memory bank of pitches past
+	std::unordered_map<std::string, int> FisMemPath({
+		{"fis",0},{"gis",0},{"a",0},{"b",0},{"bis",0},{"cis",0},{"d",0},{"dis",0},{"e",0},{"f",0}
+		});
+
+	// increment map value for key 'c'
+	void SetStepCountFisMemPath(std::string c) { FisMemPath[c]++; };
 	
 };//FisMoll
