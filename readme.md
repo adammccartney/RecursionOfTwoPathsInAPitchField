@@ -18,6 +18,11 @@ comments *should* convey a detailed description of the idea and what's happening
 
 
 ### Update 1.1.20 
+Tested Transpose functions 
+The switch was causing an error, I was trying to make it set pitch before 
+returning the newly transposed pitch. Removed the set function and 
+now it works. Need to do the transpose and set in two different steps.
+
 Putting the program back together one function at a time to test for errors, 
 working so far, having tested the *convert to string, set, get and transpose*
 functions. It seems like I might be short a member variable in the class definition.
