@@ -4,56 +4,21 @@
 
 int main()
 try {
-	using namespace FisMoll;
+	using namespace PitchPath;
 
-	Pitch TestPitch{ePitchFisMoll::fis};
+	int fis = 7;
+	std::vector<int> fft= { 7,7,4 };
+	PitchClass fisOne = { fis,fft };
 
-	std::cout << "here is the current pitch: " << TestPitch.ConvertPitchToString(TestPitch) << '\n';
-	
-	TestPitch.SetPitch(TestPitch.TransposeDownSixth(TestPitch)); // test transpose function
-	std::cout << "here it is down a sixth: " 
-		<< TestPitch.ConvertPitchToString(TestPitch) << '\n';    // confirm it works
-	SetStepCountFisMemPath(TestPitch.GetPitchString());          // count action in map
-	TestPitch.SetPitch(TestPitch.TransposeDownSixth(TestPitch)); // repeat
-	std::cout << "and again: "
-		<< TestPitch.ConvertPitchToString(TestPitch) << '\n';
-	SetStepCountFisMemPath(TestPitch.GetPitchString());
-	std::cout << "and again: "
-		<< TestPitch.ConvertPitchToString(TestPitch) << '\n';
-	SetStepCountFisMemPath(TestPitch.GetPitchString());
-	std::cout << "and again: "
-		<< TestPitch.ConvertPitchToString(TestPitch) << '\n';
-	SetStepCountFisMemPath(TestPitch.GetPitchString());
-	std::cout << "and again: "
-		<< TestPitch.ConvertPitchToString(TestPitch) << '\n';
-	SetStepCountFisMemPath(TestPitch.GetPitchString());
-	std::cout << "and again: "
-		<< TestPitch.ConvertPitchToString(TestPitch) << '\n';
-	SetStepCountFisMemPath(TestPitch.GetPitchString());
-	std::cout << "and again: "
-		<< TestPitch.ConvertPitchToString(TestPitch) << '\n';
-	SetStepCountFisMemPath(TestPitch.GetPitchString());
-	std::cout << "and again: "
-		<< TestPitch.ConvertPitchToString(TestPitch) << '\n';
-	SetStepCountFisMemPath(TestPitch.GetPitchString());
-	std::cout << "and again: "
-		<< TestPitch.ConvertPitchToString(TestPitch) << '\n';
-	SetStepCountFisMemPath(TestPitch.GetPitchString());
-	std::cout << "and again: "
-		<< TestPitch.ConvertPitchToString(TestPitch) << '\n';
-	SetStepCountFisMemPath(TestPitch.GetPitchString());
-	std::cout << "and again: "
-		<< TestPitch.ConvertPitchToString(TestPitch) << '\n';
-	SetStepCountFisMemPath(TestPitch.GetPitchString());
-	std::cout << "and again: "
-		<< TestPitch.ConvertPitchToString(TestPitch) << '\n';
-	SetStepCountFisMemPath(TestPitch.GetPitchString());
-	std::cout << "and again: "
-		<< TestPitch.ConvertPitchToString(TestPitch) << '\n';
-	SetStepCountFisMemPath(TestPitch.GetPitchString());
-	for (auto& e : FisMemPath) {
-		std::cout << '{' << e.first << "," << e.second << '}' << '\n';
-	}
+	int e = 6;
+	std::vector<int> ttff = { 4,4,7,7 };
+	PitchClass eOne = { e,ttff };
+
+	fisOne.Transpose(fis, fft, 100000);
+	fisOne.PrintRecursionMap();
+
+	eOne.Transpose(e, ttff, 100000);
+	eOne.PrintRecursionMap();
 
 }
 catch (std::runtime_error& e) {
