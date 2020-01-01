@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PITCH_GUARD
+#define PITCH_GUARD
 
 #include<string>
 #include "c:\Users\Adam\Documents\pppuc++\std_lib_facilities.h"
@@ -43,4 +44,5 @@ private:
 // Declare Specific Pitch Objects
 Pitch PPathOne(ePitchFisMoll::fis);  // initial pitch on PathOne
 
-}
+}//FisMoll
+#endif
