@@ -18,14 +18,12 @@ comments *should* convey a detailed description of the idea and what's happening
 
 
 ### Update 1.1.20 
-Errors:
 
-Message		 see declaration of 'FisMoll::FisMemPath'	RecursivePitch	
-C:\Users\Adam\source\repos\RecursivePitch\RecursivePitch\pitch.h	56	
-
-Error	C2374	 'FisMoll::FisMemPath': redefinition; multiple initialization	RecursivePitch	C:\Users\Adam\source\repos\RecursivePitch\RecursivePitch\pitch.cpp	202	
-
-Error	C2088	 '[': illegal for class	RecursivePitch	C:\Users\Adam\source\repos\RecursivePitch\RecursivePitch\pitch.cpp	207
+Redesign of code to work at a higher level of generality.
+No longer hard coded to work in specific keys, works instead in a chromatic space. 
+Letting the statistical map be output as integers, rather than pitch names.
+Errors fixed during redesign.
+Working (untested) version.
 
 Tested Transpose functions 
 The switch was causing an error, I was trying to make it set pitch before 
