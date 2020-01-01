@@ -18,6 +18,14 @@ comments *should* convey a detailed description of the idea and what's happening
 
 
 ### Update 1.1.20 
+Errors:
+
+Message		 see declaration of 'FisMoll::FisMemPath'	RecursivePitch	C:\Users\Adam\source\repos\RecursivePitch\RecursivePitch\pitch.h	56	
+Error	C2374	 'FisMoll::FisMemPath': redefinition; multiple initialization	RecursivePitch	C:\Users\Adam\source\repos\RecursivePitch\RecursivePitch\pitch.cpp	202	
+
+Error	C2088	 '[': illegal for class	RecursivePitch	C:\Users\Adam\source\repos\RecursivePitch\RecursivePitch\pitch.cpp	207	
+
+
 Tested Transpose functions 
 The switch was causing an error, I was trying to make it set pitch before 
 returning the newly transposed pitch. Removed the set function and 
