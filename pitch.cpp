@@ -1,6 +1,8 @@
 #include "pitch.h"
 
 namespace FisMoll {
+
+
 	
 	ePitchFisMoll operator++(ePitchFisMoll& p)
 	{
