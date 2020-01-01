@@ -22,7 +22,7 @@ namespace FisMoll {
 	/*
 	std::ostream& operator<<(std::ostream& os, Pitch& p) const
 	{
-		return os << p.GetCurrentPitch() << '\n';
+		return os << p.GetPitch() << '\n';
 	}
 	*/
 
@@ -42,7 +42,7 @@ namespace FisMoll {
 	// non modifying function definitions
 	std::string Pitch::ConvertPitchToString(Pitch p)
 	{
-		switch (p.GetCurrentPitch()) { // returns the current pitch from ePitchFisMoll
+		switch (p.GetPitch()) { // returns the current pitch from ePitchFisMoll
 		case ePitchFisMoll::fis:
 			return "fis";              // return transposed pitch
 			break;
@@ -83,50 +83,116 @@ namespace FisMoll {
 	// up a fifth()
 	ePitchFisMoll Pitch::TransposeUpFifth(Pitch p) {
 		// switch over input
-		switch (p.GetCurrentPitch()) {
+		switch (p.GetPitch()) {
 		case ePitchFisMoll::fis:                     // for a case where current pitch is F#
-			p.SetCurrentPitch(ePitchFisMoll::cis);   // transpose current pitch up a 5th to C# 
-			return p.GetCurrentPitch();                     // return transposed pitch
+			return ePitchFisMoll::cis;                     // return transposed pitch
 			break;
 		case ePitchFisMoll::gis:
-			p.SetCurrentPitch(ePitchFisMoll::dis);
-			return p.GetCurrentPitch();
+			return ePitchFisMoll::dis;
 			break;
 		case ePitchFisMoll::a:
-			p.SetCurrentPitch(ePitchFisMoll::e);
-			return p.GetCurrentPitch();
+			return ePitchFisMoll::e;
 			break;
 		case ePitchFisMoll::b:
-			p.SetCurrentPitch(ePitchFisMoll::fis);
-			return p.GetCurrentPitch();
+			return ePitchFisMoll::fis;
 			break;
 		case ePitchFisMoll::bis:
-			p.SetCurrentPitch(ePitchFisMoll::gis);
-			return p.GetCurrentPitch();
+			return ePitchFisMoll::gis;
 			break;
 		case ePitchFisMoll::cis:
-			p.SetCurrentPitch(ePitchFisMoll::gis);
-			return p.GetCurrentPitch();
+			return ePitchFisMoll::gis;
 			break;
 		case ePitchFisMoll::d:
-			p.SetCurrentPitch(ePitchFisMoll::a);
-			return p.GetCurrentPitch();
+			p.SetPitch(ePitchFisMoll::a);
+			return p.GetPitch();
 			break;
-		case ePitchFisMoll::dis:
-			p.SetCurrentPitch(ePitchFisMoll::b);
-			return p.GetCurrentPitch();
+		case ePitchFisMoll::dis:           
+			return ePitchFisMoll::b;              // not a fifth because of value returned from d
 			break;
 		case ePitchFisMoll::e:
-			p.SetCurrentPitch(ePitchFisMoll::b);
-			return p.GetCurrentPitch();
+			return ePitchFisMoll::b;
 			break;
 		case ePitchFisMoll::f:
-			p.SetCurrentPitch(ePitchFisMoll::bis);
-			return p.GetCurrentPitch();
+			return ePitchFisMoll::bis;
 			break;
 		}
 
 	};
 
-
+	
+	// up a third()
+	ePitchFisMoll Pitch::TransposeUpThird(Pitch p) {
+		// switch over input
+		switch (p.GetPitch()) {
+		case ePitchFisMoll::fis:
+			return ePitchFisMoll::a;              // return transposed pitch
+			break;
+		case ePitchFisMoll::gis:
+			return ePitchFisMoll::b;
+			break;
+		case ePitchFisMoll::a:
+			return ePitchFisMoll::cis;
+			break;
+		case ePitchFisMoll::b:
+			return ePitchFisMoll::d;
+			break;
+		case ePitchFisMoll::bis:
+			return ePitchFisMoll::e;
+			break;
+		case ePitchFisMoll::cis:
+			return ePitchFisMoll::e;
+			break;
+		case ePitchFisMoll::d:
+			return ePitchFisMoll::f;
+			break;
+		case ePitchFisMoll::dis:
+			return ePitchFisMoll::fis;
+			break;
+		case ePitchFisMoll::e:
+			return ePitchFisMoll::gis;
+			break;
+		case ePitchFisMoll::f:
+			return ePitchFisMoll::a;
+			break;
+		}
+	};
+	
+	
+	// down a sixth()
+	ePitchFisMoll Pitch::TransposeDownSixth(Pitch p) {
+		// switch over input
+		switch (p.GetPitch()) {
+		case ePitchFisMoll::fis:
+			return ePitchFisMoll::a;                            // return transposed pitch
+			break;
+		case ePitchFisMoll::gis:
+			return ePitchFisMoll::bis;
+			break;
+		case ePitchFisMoll::a:
+			return ePitchFisMoll::cis;
+			break;
+		case ePitchFisMoll::b:
+			return ePitchFisMoll::dis;
+			break;
+		case ePitchFisMoll::bis:
+			return ePitchFisMoll::e;
+			break;
+		case ePitchFisMoll::cis:
+			return ePitchFisMoll::f;
+			break;
+		case ePitchFisMoll::d:
+			return ePitchFisMoll::fis;
+			break;
+		case ePitchFisMoll::dis:
+			return ePitchFisMoll::fis;
+			break;
+		case ePitchFisMoll::e:
+			return ePitchFisMoll::gis;
+			break;
+		case ePitchFisMoll::f:
+			return ePitchFisMoll::a;
+			break;
+		}
+	};
+	
 };//FisMoll
