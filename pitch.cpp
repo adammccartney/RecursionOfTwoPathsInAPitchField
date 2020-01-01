@@ -1,12 +1,10 @@
 #include "pitch.h"
 
-namespace FisMoll {
+namespace PitchPath {
 
-
-	
-	ePitchFisMoll operator++(ePitchFisMoll& p)
+	Pitch operator++(Pitch& p)
 	{
-		p = (p == ePitchFisMoll::f) ? ePitchFisMoll::fis : ePitchFisMoll(int(p) + 1); // wrap around
+		p = (p == Pitch::h) ? Pitch::c : Pitch(int(p) + 1); // wrap around
 		return p;
 	}
 	
@@ -14,196 +12,59 @@ namespace FisMoll {
 	// construct PitchClass
 
 	// default
-	Pitch::Pitch() : p{ ePitchFisMoll::fis } {}
+	PitchClass::PitchClass() : p{ 0 }, tp{ {'\0'} } { }
+	PitchClass::PitchClass(int p, std::vector<int> tp) 
+		: p{ p }, tp{ tp }
+	{
+		//if (!is_valid())throw Invalid{}; // if valid, initializes pitch with a member of enum class Fis Moll
+	}
 
-	Pitch::Pitch(ePitchFisMoll p) : p{ p } { } // initializes pitch with a member of enum class Fis Moll
-	//Pitch::Pitch(int ip) : ip{ip} { }
+	void PitchClass::PrintRecursionMap()
+	{
+		for (auto& e : recursion_map) {
+			std::cout << '{' << e.first << "," << e.second << '}' << '\n';
+		}
+	}
+
 
 	//----------------------------------------------------------------
-	
-	/*
-	std::ostream& operator<<(std::ostream& os, Pitch& p) const
-	{
-		return os << p.GetPitch() << '\n';
-	}
-	*/
 
-	bool Pitch::is_valid()
+	/*
+	bool PitchClass::is_valid()
 	{
-		if(p < ePitchFisMoll::fis || ePitchFisMoll::f < p)return false;
+		if(p < 0 || 11 > p)return false; // there are 12 pitches in an octave
 		{
 			// if pitch is valid, initialize
-			Pitch::p = p;
+			PitchClass::p = p;
+			PitchClass::tp = tp;
 		}
 		return true;
 	}
-	
+	*/
+	//------------------------------------------------------------------------
 
-	//---------------------------------------------------------------------------
-
-	// non modifying function definitions
-	std::string Pitch::ConvertPitchToString(Pitch p)
+	void PitchClass::AddPitch(int n)
 	{
-		switch (p.GetPitch()) { // returns the current pitch from ePitchFisMoll
-		case ePitchFisMoll::fis:
-			return "fis";              // return transposed pitch
-			break;
-		case ePitchFisMoll::gis:
-			return "gis";
-			break;
-		case ePitchFisMoll::a:
-			return "a";
-			break;
-		case ePitchFisMoll::b:
-			return "b";
-			break;
-		case ePitchFisMoll::bis:
-			return "bis";
-			break;
-		case ePitchFisMoll::cis:
-			return "cis";
-			break;
-		case ePitchFisMoll::d:
-			return "d";
-			break;
-		case ePitchFisMoll::dis:
-			return "dis";
-			break;
-		case ePitchFisMoll::e:
-			return "e";
-			break;
-		case ePitchFisMoll::f:
-			return "f";
-			break;
+		bool lastPitch = false;
+		// if day exceeds last pitch in the octave, roll on to next octave and set pitch to 0
+		for (int i = 0; i < n; ++i)
+		{
+			if (p == 11)
+				lastPitch = true;
+				p = (p == 11) ? 0 : ++p; // at h, roll on to c if pitch = 11, otherwise ++
 		}
 	}
 
-	// ----------------------------------------------------------------------
+	//------------------------------------------------------------------------
 
-	// Define transposition functions
-	//
-	// up a fifth()
-	ePitchFisMoll Pitch::TransposeUpFifth(Pitch p) {
-		// switch over input
-		switch (p.GetPitch()) {
-		case ePitchFisMoll::fis:                     // for a case where current pitch is F#
-			return ePitchFisMoll::cis;                     // return transposed pitch
-			break;
-		case ePitchFisMoll::gis:
-			return ePitchFisMoll::dis;
-			break;
-		case ePitchFisMoll::a:
-			return ePitchFisMoll::e;
-			break;
-		case ePitchFisMoll::b:
-			return ePitchFisMoll::fis;
-			break;
-		case ePitchFisMoll::bis:
-			return ePitchFisMoll::gis;
-			break;
-		case ePitchFisMoll::cis:
-			return ePitchFisMoll::gis;
-			break;
-		case ePitchFisMoll::d:
-			p.SetPitch(ePitchFisMoll::a);
-			return p.GetPitch();
-			break;
-		case ePitchFisMoll::dis:           
-			return ePitchFisMoll::b;              // not a fifth because of value returned from d
-			break;
-		case ePitchFisMoll::e:
-			return ePitchFisMoll::b;
-			break;
-		case ePitchFisMoll::f:
-			return ePitchFisMoll::bis;
-			break;
+	// arguments are starting pitch, tranpositions, number of interations
+	void PitchClass::Transpose(const int& p, const std::vector<int>& tp, int x)  
+	{
+		for (int i = 0; i < x; ++i) {
+			for (int j = 0; j < tp.size(); ++j) {
+				AddPitch(tp[j]);
+				CountPitchRecursion(GetPitch());
+			}
 		}
-
-	};
-
-	
-	// up a third()
-	ePitchFisMoll Pitch::TransposeUpThird(Pitch p) {
-		// switch over input
-		switch (p.GetPitch()) {
-		case ePitchFisMoll::fis:
-			return ePitchFisMoll::a;              // return transposed pitch
-			break;
-		case ePitchFisMoll::gis:
-			return ePitchFisMoll::b;
-			break;
-		case ePitchFisMoll::a:
-			return ePitchFisMoll::cis;
-			break;
-		case ePitchFisMoll::b:
-			return ePitchFisMoll::d;
-			break;
-		case ePitchFisMoll::bis:
-			return ePitchFisMoll::e;
-			break;
-		case ePitchFisMoll::cis:
-			return ePitchFisMoll::e;
-			break;
-		case ePitchFisMoll::d:
-			return ePitchFisMoll::f;
-			break;
-		case ePitchFisMoll::dis:
-			return ePitchFisMoll::fis;
-			break;
-		case ePitchFisMoll::e:
-			return ePitchFisMoll::gis;
-			break;
-		case ePitchFisMoll::f:
-			return ePitchFisMoll::a;
-			break;
-		}
-	};
-	
-	
-	// down a sixth()
-	ePitchFisMoll Pitch::TransposeDownSixth(Pitch p) {
-		// switch over input
-		switch (p.GetPitch()) {
-		case ePitchFisMoll::fis:
-			return ePitchFisMoll::a;                            // return transposed pitch
-			break;
-		case ePitchFisMoll::gis:
-			return ePitchFisMoll::bis;
-			break;
-		case ePitchFisMoll::a:
-			return ePitchFisMoll::cis;
-			break;
-		case ePitchFisMoll::b:
-			return ePitchFisMoll::dis;
-			break;
-		case ePitchFisMoll::bis:
-			return ePitchFisMoll::e;
-			break;
-		case ePitchFisMoll::cis:
-			return ePitchFisMoll::f;
-			break;
-		case ePitchFisMoll::d:
-			return ePitchFisMoll::fis;
-			break;
-		case ePitchFisMoll::dis:
-			return ePitchFisMoll::fis;
-			break;
-		case ePitchFisMoll::e:
-			return ePitchFisMoll::gis;
-			break;
-		case ePitchFisMoll::f:
-			return ePitchFisMoll::a;
-			break;
-		}
-	};
-
-	//std::ostream& operator<<(std::ostream& os, Pitch& p) const;
-    // Create memory bank of pitches past
-	std::unordered_map<std::string, int> FisMemPath({
-		{"fis",0},{"gis",0},{"a",0},{"b",0},{"bis",0},{"cis",0},{"d",0},{"dis",0},{"e",0},{"f",0}
-		});
-
-	// increment map value for key 'c'
-	void SetStepCountFisMemPath(std::string c) { FisMemPath[c]++; };
-	
-};//FisMoll
+	}
+};//PitchPath
