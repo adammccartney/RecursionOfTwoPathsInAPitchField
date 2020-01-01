@@ -15,7 +15,3 @@ That's not part of the program, but maybe it helps to know.
 
 Code has been generated from pseudocode, so the
 comments *should* convey a detailed description of the idea and what's happening.
-
-This is a test version that tries to generate a model of one path from an initial pitch.
-It's buggy, at the moment it's returning a LNK2005 error due to some multiple definition 
-that's proving tricky to find.
