@@ -19,15 +19,20 @@ namespace FisMoll {
 
 		// nonmodifying operations
 		//int CurrentPitch();
-		ePitchFisMoll GetCurrentPitch() { return p; };
+		ePitchFisMoll GetPitch() { return p; };
+
 		std::string ConvertPitchToString(Pitch p);
-		void SetCurrentPitchString(Pitch cp) { current_pitch_string = cp.GetCurrentPitchString(); }
-		std::string GetCurrentPitchString() { return current_pitch_string; }
+
+		std::string GetPitchString() { return current_pitch_string; }
 
 
 		//modifying operations
-		void SetCurrentPitch(ePitchFisMoll transposed_pitch) { p = transposed_pitch; }
+		void SetPitch(ePitchFisMoll pp) { p = pp; }
+
+
 		ePitchFisMoll TransposeUpFifth(Pitch p);
+		ePitchFisMoll TransposeUpThird(Pitch p);
+		ePitchFisMoll TransposeDownSixth(Pitch p);
 		
 
 	private:
