@@ -15,7 +15,7 @@
 
 */
 
-#include "pitch.cpp"
+#include "pitch.h"
 #include <iterator>
 
 
