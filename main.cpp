@@ -10,13 +10,9 @@ try {
 
 	std::cout << "here is the current pitch: " << TestPitch.ConvertPitchToString(TestPitch) << '\n';
 	
-
-	
-	std::cout << "here it is up a fifth: " 
-		<< TestPitch.ConvertPitchToString(TestPitch.TransposeUpFifth(TestPitch)) << '\n';
-
-	//std::cout << "here is a test pitch as int: " << TestPitch.CurrentPitch() << '\n';
-	//std::cout << "here is a default test pitch as int: " << TestDefaultPitch.CurrentPitch() << '\n';
+	TestPitch.SetPitch(TestPitch.TransposeDownSixth(TestPitch));
+	std::cout << "here it is down a sixth: " 
+		<< TestPitch.ConvertPitchToString(TestPitch) << '\n';
 
 }
 catch (std::runtime_error& e) {
